@@ -1,9 +1,9 @@
 import { NextResponse } from "next/server";
 import { supabase } from "@/lib/supabase";
 
-export async function DELETE(req: Request, { params }: { params: { chatId: string } }) {
+export async function DELETE(req: Request, { params }: { params: Promise<{ chatId: string }> }) {
     try {
-        const { chatId } = params;
+        const { chatId } = await params;
 
         if (!chatId) {
             return NextResponse.json({ success: false, error: "Chat ID is required" }, { status: 400 });
